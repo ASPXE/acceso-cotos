@@ -14,14 +14,17 @@ public class VigilantesDAOJDBC implements VigilantesDAO{
 
     @Override
     public List<VigilantesDTO> selectAll() throws SQLException {
+        return null;
     }
 
     @Override
     public VigilantesDTO selectOne(int idVigilantes) throws SQLException {
+        return null;
     }
 
     @Override
     public boolean validarUsuario(String nombreUsuario, String passwd) throws SQLException {
+        return false;
     }
     
 }
