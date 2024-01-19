@@ -56,6 +56,12 @@ public class VigilantesDTO {
         this.horario = horario;
     }
     
+    // Constructor con solo nombreUsuario y passwd
+    public VigilantesDTO(String nombreUsuario, String passwd){
+        this.nombreUsuario = nombreUsuario;
+        this.passwd = passwd;
+    }
+    
     // Metodos get y set
 
     public int getIdVigilantes() {

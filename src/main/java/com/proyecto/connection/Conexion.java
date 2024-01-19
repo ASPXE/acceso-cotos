@@ -20,11 +20,11 @@ import java.util.logging.Logger;
  */
 public class Conexion {
     
-    private static final String JDBC_URL = "jdbc:mysql://127.0.0.1:3306/arquitectura_software?useSSL=false&useTimeZone=true&serverTimeZone=UTC"
+    private static final String JDBC_URL = "jdbc:mysql://arquitectura-software.cfkhcrzck2ap.us-east-1.rds.amazonaws.com:3306/arquitectura_colaborativo?useSSL=false&useTimeZone=true&serverTimeZone=UTC"
             + "&allowPublicKeyRetrieval=true";
 
-    private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWD = "root0000";
+    private static final String JDBC_USER = "aspxe";
+    private static final String JDBC_PASSWD = "aspxe0000";
     
     public static Connection conectar() throws SQLException {
         try {

@@ -4,6 +4,10 @@
  */
 package com.proyecto.view;
 
+import com.proyecto.controller.VigilantesDAOJDBC;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Bañales
@@ -13,8 +17,12 @@ public class login extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
+    
+    private VigilantesDAOJDBC vigilante;
+    
     public login() {
         initComponents();
+        this.vigilante = new VigilantesDAOJDBC();
     }
 
     /**
@@ -30,9 +38,9 @@ public class login extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        txtUsuario = new javax.swing.JTextField();
+        txtPasswd = new javax.swing.JPasswordField();
+        btnIngresar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -55,40 +63,40 @@ public class login extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
         jLabel3.setText("Usuario");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(186, 182, 72, 20);
+        jLabel3.setBounds(186, 182, 72, 19);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
         jLabel4.setText("Password");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(186, 257, 88, 20);
+        jLabel4.setBounds(186, 257, 88, 19);
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
-        jTextField1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.white, java.awt.Color.black, java.awt.Color.black));
-        jTextField1.setMaximumSize(new java.awt.Dimension(200, 34));
-        jTextField1.setMinimumSize(new java.awt.Dimension(200, 34));
-        jTextField1.setPreferredSize(new java.awt.Dimension(200, 34));
-        jPanel1.add(jTextField1);
-        jTextField1.setBounds(186, 205, 200, 34);
+        txtUsuario.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
+        txtUsuario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.white, java.awt.Color.black, java.awt.Color.black));
+        txtUsuario.setMaximumSize(new java.awt.Dimension(200, 34));
+        txtUsuario.setMinimumSize(new java.awt.Dimension(200, 34));
+        txtUsuario.setPreferredSize(new java.awt.Dimension(200, 34));
+        jPanel1.add(txtUsuario);
+        txtUsuario.setBounds(186, 205, 200, 34);
 
-        jPasswordField1.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
-        jPasswordField1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.white, java.awt.Color.black, java.awt.Color.black));
-        jPasswordField1.setMaximumSize(new java.awt.Dimension(200, 34));
-        jPasswordField1.setMinimumSize(new java.awt.Dimension(200, 34));
-        jPasswordField1.setPreferredSize(new java.awt.Dimension(200, 34));
-        jPanel1.add(jPasswordField1);
-        jPasswordField1.setBounds(186, 283, 200, 34);
+        txtPasswd.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
+        txtPasswd.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.white, java.awt.Color.black, java.awt.Color.black));
+        txtPasswd.setMaximumSize(new java.awt.Dimension(200, 34));
+        txtPasswd.setMinimumSize(new java.awt.Dimension(200, 34));
+        txtPasswd.setPreferredSize(new java.awt.Dimension(200, 34));
+        jPanel1.add(txtPasswd);
+        txtPasswd.setBounds(186, 283, 200, 34);
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/iniciar (1).png"))); // NOI18N
-        jButton1.setText("  Iniciar");
-        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.white, java.awt.Color.black, java.awt.Color.black));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnIngresar.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
+        btnIngresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/iniciar (1).png"))); // NOI18N
+        btnIngresar.setText("  Iniciar");
+        btnIngresar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.white, java.awt.Color.black, java.awt.Color.black));
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnIngresarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1);
-        jButton1.setBounds(220, 350, 120, 30);
+        jPanel1.add(btnIngresar);
+        btnIngresar.setBounds(220, 350, 120, 30);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/usuario.jpeg"))); // NOI18N
         jPanel1.add(jLabel5);
@@ -100,9 +108,32 @@ public class login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+        boolean esValido = false;
+        
+        try{
+            esValido = this.vigilante.validarUsuario(txtUsuario.getText(), txtPasswd.getText());
+        }catch(SQLException e){
+            System.out.println("Ha ocurrido un error al tratar de validar Vigilantes: "+e);
+        }
+        
+        if(esValido){
+            System.out.println("Bienvenido/a");
+            JOptionPane.showMessageDialog(this, "Bienvenido/a", "Credenciales correctas", JOptionPane.INFORMATION_MESSAGE);
+            this.setVisible(false);
+            this.setEnabled(false);
+            MenuInicio menu = new MenuInicio();
+            menu.setVisible(true);
+            menu.setEnabled(true);
+            
+        }else{
+            System.out.println("Usuario o contraseña incorrectos.");
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "Credenciales inválidas", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,15 +170,20 @@ public class login extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void vaciarCampos(){
+        txtUsuario.setText("");
+        txtUsuario.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnIngresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField txtPasswd;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
