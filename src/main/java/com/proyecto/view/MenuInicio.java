@@ -4,7 +4,7 @@
  */
 package com.proyecto.view;
 
-import com.cotos.view.Visitantes;
+import com.proyecto.objects.VigilantesDTO;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
@@ -17,8 +17,18 @@ public class MenuInicio extends javax.swing.JFrame {
     /**
      * Creates new form MenuInicio
      */
+    
+    public VigilantesDTO vigilante;
+    
     public MenuInicio() {
         initComponents();
+    }
+    
+    public MenuInicio(VigilantesDTO vigilante){
+        initComponents();
+        this.vigilante = vigilante;
+        System.out.println("Iniciando menú principal...");
+        System.out.println(this.vigilante.toString());
     }
 
     /**
@@ -58,7 +68,7 @@ public class MenuInicio extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("EYE SECURITY");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(30, 140, 140, 22);
+        jLabel2.setBounds(20, 140, 170, 22);
 
         jButton1.setBackground(new java.awt.Color(77, 98, 115));
         jButton1.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
@@ -110,7 +120,8 @@ public class MenuInicio extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Visitantes visita = new Visitantes();
+        System.out.println("Transfiriendo el id... "+ this.vigilante.getIdVigilantes());
+        Visitantes visita = new Visitantes(this.vigilante.getIdVigilantes());
         ShowPanel(visita);
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -134,6 +134,11 @@ public class VisitasDTO {
         this.vigilante = vigilante;
     }
     
+    // Constructor vacio
+    public VisitasDTO(){
+        
+    }
+    
     // Metodos get y set
 
     public int getIdVisitas() {

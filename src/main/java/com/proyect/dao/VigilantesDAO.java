@@ -14,6 +14,7 @@ public interface VigilantesDAO {
     public List<VigilantesDTO> selectAll() throws SQLException;
     public VigilantesDTO selectOne(int idVigilantes) throws SQLException;
     public boolean validarUsuario(String nombreUsuario, String passwd) throws SQLException;
+    public VigilantesDTO recuperarId(String nombreUsuario, String passwd) throws SQLException;
     
     
 }

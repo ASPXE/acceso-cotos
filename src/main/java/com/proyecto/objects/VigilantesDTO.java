@@ -62,6 +62,11 @@ public class VigilantesDTO {
         this.passwd = passwd;
     }
     
+    // Constructor con solo idVigilantes
+    public VigilantesDTO(int idVigilantes){
+        this.idVigilantes = idVigilantes;
+    }
+    
     // Metodos get y set
 
     public int getIdVigilantes() {

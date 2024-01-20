@@ -2,17 +2,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.cotos.view;
+package com.proyecto.view;
+
+import com.proyecto.controller.VisitasDAOJDBC;
+import com.proyecto.objects.VisitasDTO;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author pabloochoagutierrez
  */
+
+// Backend hecho por aspxe
 public class Visitantes extends javax.swing.JPanel {
 
     /**
      * Creates new form Visitantes
      */
+    
+    private int idVigilantes;
+    
     public Visitantes() {
         initComponents();
         
@@ -31,15 +42,51 @@ public class Visitantes extends javax.swing.JPanel {
         lblNum.setEnabled(false);
         txtMatricula.setEnabled(false);
         lblMatricula.setEnabled(false);
-        txtEntrada.setEnabled(false);
-        lblEntradas.setEnabled(false);
-        txtSalida.setEnabled(false);
-        lblSalidas.setEnabled(false);
         
         //Tabla Visitantes
         tblVisitantes.setEnabled(false);
         //Tabla Proveedor
         tblServicios.setVisible(false);
+        
+        buttonGroup1.add(radioEntrada);
+        buttonGroup1.add(radioSalida);
+        
+        radioEntrada.setEnabled(false);
+        radioSalida.setEnabled(false);
+        
+    }
+    
+    public Visitantes(int idVigilantes){
+        
+        initComponents();
+        
+        //Opciones Servicios
+        txtDependencia.setEnabled(false);
+        txtNumEmp.setEnabled(false);
+        pnlDis.setEnabled(false);
+        lblServ.setEnabled(false);
+        lblDep.setEnabled(false);
+        lblNumEm.setEnabled(false);
+        
+        //Opciones Visitantes
+        txtNombre.setEnabled(false);
+        lblNombre.setEnabled(false);
+        txtNumcasa.setEnabled(false);
+        lblNum.setEnabled(false);
+        txtMatricula.setEnabled(false);
+        lblMatricula.setEnabled(false);
+        
+        //Tabla Visitantes
+        tblVisitantes.setEnabled(false);
+        //Tabla Proveedor
+        tblServicios.setVisible(false);
+        
+        buttonGroup1.add(radioEntrada);
+        buttonGroup1.add(radioSalida);
+        
+        radioEntrada.setEnabled(false);
+        radioSalida.setEnabled(false);
+        this.idVigilantes = idVigilantes;
     }
 
     /**
@@ -54,6 +101,7 @@ public class Visitantes extends javax.swing.JPanel {
         rbtnEntradas = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -65,10 +113,6 @@ public class Visitantes extends javax.swing.JPanel {
         txtNumcasa = new javax.swing.JTextField();
         lblMatricula = new javax.swing.JLabel();
         txtMatricula = new javax.swing.JTextField();
-        lblEntradas = new javax.swing.JLabel();
-        lblSalidas = new javax.swing.JLabel();
-        txtEntrada = new javax.swing.JTextField();
-        txtSalida = new javax.swing.JTextField();
         rbtnVisitantes = new javax.swing.JRadioButton();
         rbtnServicios = new javax.swing.JRadioButton();
         pnlDis = new javax.swing.JPanel();
@@ -82,6 +126,8 @@ public class Visitantes extends javax.swing.JPanel {
         tblVisitantes = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblServicios = new javax.swing.JTable();
+        radioEntrada = new javax.swing.JRadioButton();
+        radioSalida = new javax.swing.JRadioButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -110,7 +156,7 @@ public class Visitantes extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("REGISTRO DE ENTRADAS");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(280, 30, 310, 30);
+        jLabel2.setBounds(280, 30, 390, 30);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 900, 100);
@@ -124,12 +170,12 @@ public class Visitantes extends javax.swing.JPanel {
         jPanel4.setBounds(30, 220, 780, 10);
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(30, 210, 780, 10);
+        jPanel3.setBounds(30, 210, 460, 10);
 
         lblNombre.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
         lblNombre.setText("Nombre");
         jPanel1.add(lblNombre);
-        lblNombre.setBounds(60, 190, 100, 20);
+        lblNombre.setBounds(60, 190, 100, 19);
 
         txtNombre.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         txtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 255)));
@@ -139,7 +185,7 @@ public class Visitantes extends javax.swing.JPanel {
         lblNum.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
         lblNum.setText("#Num Casa");
         jPanel1.add(lblNum);
-        lblNum.setBounds(200, 190, 100, 20);
+        lblNum.setBounds(200, 190, 130, 19);
 
         txtNumcasa.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         txtNumcasa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 255)));
@@ -154,38 +200,13 @@ public class Visitantes extends javax.swing.JPanel {
         lblMatricula.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
         lblMatricula.setText("Matricula");
         jPanel1.add(lblMatricula);
-        lblMatricula.setBounds(370, 190, 100, 20);
+        lblMatricula.setBounds(370, 190, 100, 19);
 
         txtMatricula.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
         txtMatricula.setText("JAD-092-BD2");
         txtMatricula.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 255)));
         jPanel1.add(txtMatricula);
         txtMatricula.setBounds(360, 230, 100, 30);
-
-        lblEntradas.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
-        lblEntradas.setText("Entradas");
-        jPanel1.add(lblEntradas);
-        lblEntradas.setBounds(530, 190, 80, 20);
-
-        lblSalidas.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
-        lblSalidas.setText("Salidas");
-        jPanel1.add(lblSalidas);
-        lblSalidas.setBounds(680, 190, 70, 20);
-
-        txtEntrada.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
-        txtEntrada.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 255)));
-        jPanel1.add(txtEntrada);
-        txtEntrada.setBounds(520, 230, 100, 30);
-
-        txtSalida.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
-        txtSalida.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 255)));
-        txtSalida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSalidaActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txtSalida);
-        txtSalida.setBounds(670, 230, 100, 30);
 
         rbtnEntradas.add(rbtnVisitantes);
         rbtnVisitantes.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
@@ -228,17 +249,17 @@ public class Visitantes extends javax.swing.JPanel {
         lblServ.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         lblServ.setText("Servico Privado / Publico");
         jPanel1.add(lblServ);
-        lblServ.setBounds(30, 290, 240, 22);
+        lblServ.setBounds(30, 290, 320, 22);
 
         lblDep.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
         lblDep.setText("Dependencia");
         jPanel1.add(lblDep);
-        lblDep.setBounds(100, 330, 110, 20);
+        lblDep.setBounds(100, 330, 150, 19);
 
         lblNumEm.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
         lblNumEm.setText("#Num Empleado");
         jPanel1.add(lblNumEm);
-        lblNumEm.setBounds(300, 330, 150, 20);
+        lblNumEm.setBounds(300, 330, 150, 19);
 
         txtNumEmp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 255)));
         jPanel1.add(txtNumEmp);
@@ -256,6 +277,11 @@ public class Visitantes extends javax.swing.JPanel {
         btnRegistrar.setFont(new java.awt.Font("Tahoma", 3, 16)); // NOI18N
         btnRegistrar.setText("Registrar");
         btnRegistrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 255), 3));
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnRegistrar);
         btnRegistrar.setBounds(630, 460, 110, 40);
 
@@ -291,6 +317,26 @@ public class Visitantes extends javax.swing.JPanel {
         jPanel1.add(jScrollPane3);
         jScrollPane3.setBounds(50, 430, 500, 160);
 
+        radioEntrada.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        radioEntrada.setText("Entrada");
+        radioEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioEntradaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(radioEntrada);
+        radioEntrada.setBounds(550, 200, 90, 26);
+
+        radioSalida.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        radioSalida.setText("Salida");
+        radioSalida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioSalidaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(radioSalida);
+        radioSalida.setBounds(710, 200, 76, 26);
+
         add(jPanel1);
         jPanel1.setBounds(0, 0, 900, 600);
     }// </editor-fold>//GEN-END:initComponents
@@ -298,10 +344,6 @@ public class Visitantes extends javax.swing.JPanel {
     private void txtNumcasaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumcasaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNumcasaActionPerformed
-
-    private void txtSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSalidaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSalidaActionPerformed
 
     private void rbtnServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnServiciosActionPerformed
         //Opciones Servicio Mostrar
@@ -312,20 +354,18 @@ public class Visitantes extends javax.swing.JPanel {
         lblDep.setEnabled(true);
         lblNumEm.setEnabled(true);
         //Opciones Visitantes Ocultar
-        txtNombre.setEnabled(false);
-        lblNombre.setEnabled(false);
-        txtNumcasa.setEnabled(false);
+        txtNombre.setEnabled(true);
+        lblNombre.setEnabled(true);
+        txtNumcasa.setEnabled(true);
         lblNum.setEnabled(false);
         txtMatricula.setEnabled(false);
         lblMatricula.setEnabled(false);
-        txtEntrada.setEnabled(false);
-        lblEntradas.setEnabled(false);
-        txtSalida.setEnabled(false);
-        lblSalidas.setEnabled(false);
         //Tabla servicos
         tblServicios.setVisible(true);
         //Tabla Visitantes
         tblVisitantes.setVisible(false);
+        radioEntrada.setEnabled(true);
+        radioSalida.setEnabled(true);
     }//GEN-LAST:event_rbtnServiciosActionPerformed
 
     private void txtDependenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDependenciaActionPerformed
@@ -347,19 +387,100 @@ public class Visitantes extends javax.swing.JPanel {
         lblNum.setEnabled(true);
         txtMatricula.setEnabled(true);
         lblMatricula.setEnabled(true);
-        txtEntrada.setEnabled(true);
-        lblEntradas.setEnabled(true);
-        txtSalida.setEnabled(true);
-        lblSalidas.setEnabled(true);
         //Tabla Servicios
         tblServicios.setVisible(false);
         //Tabla Visitantes
         tblVisitantes.setVisible(true);
+        radioEntrada.setEnabled(true);
+        radioSalida.setEnabled(true);
     }//GEN-LAST:event_rbtnVisitantesActionPerformed
 
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        
+        long currentTimeMillis = System.currentTimeMillis();
+        Timestamp fecha = new Timestamp(currentTimeMillis);
+        VisitasDTO visitante = new VisitasDTO();
+        VisitasDAOJDBC visitanteInsertar = new VisitasDAOJDBC();
+        int registros = 0;
+        
+        if(radioEntrada.isSelected()){
+            visitante.setFechaEntrada(fecha);
+        }else if(radioSalida.isSelected()){
+            visitante.setFechaSalida(fecha);
+        }
+        
+        if(rbtnServicios.isSelected()){
+            validarEntradaSalida();
+            visitante.setNombres(txtNombre.getText());
+            visitante.setDependencia(txtDependencia.getText());
+            visitante.setCedula(txtNumEmp.getText());
+            visitante.setNumeroCasa(Integer.parseInt(txtNumcasa.getText()));
+            visitante.setVigilante(this.idVigilantes);
+        }else if(rbtnVisitantes.isSelected()){
+            validarEntradaSalida();
+            visitante.setNombres(txtNombre.getText());
+            visitante.setNumeroCasa(Integer.parseInt(txtNumcasa.getText()));
+            visitante.setMatriculaVehiculo(txtMatricula.getText());
+            visitante.setVigilante(this.idVigilantes);
+            
+        }
+        
+        try{
+            registros = visitanteInsertar.insertAll(visitante);
+        }catch(SQLException e){
+            System.out.println("Ha ocurrido un error al tratar de insertar en Visitas: "+e);
+        }
+        
+        if(registros != 0){
+            JOptionPane.showMessageDialog(this, "¡Visita registrada exitosamente!", "Registro insertado", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        limpiarCampos();
+        
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void radioEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioEntradaActionPerformed
+        // TODO add your handling code here:
+        
+        if(radioEntrada.isSelected()){
+            radioSalida.setSelected(false);
+        }
+        
+    }//GEN-LAST:event_radioEntradaActionPerformed
+
+    private void radioSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioSalidaActionPerformed
+        // TODO add your handling code here:
+        
+        if(radioSalida.isSelected()){
+            radioEntrada.setSelected(false);
+        }
+    }//GEN-LAST:event_radioSalidaActionPerformed
+
+    public void validarEntradaSalida(){
+        if(radioEntrada.isSelected()){
+            System.out.println("Entrada seleccionada");
+        }else if(radioSalida.isSelected()){
+            System.out.println("Salida seleccionada");
+        }else{
+            System.out.println("No ha seleccionado si es entrada o salida");
+            JOptionPane.showMessageDialog(this, "No seleccionó"
+                    + " si es entrada o salida", "Información requerida", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void limpiarCampos(){
+        
+        txtDependencia.setText("");
+        txtMatricula.setText("");
+        txtNombre.setText("");
+        txtNumEmp.setText("");
+        txtNumcasa.setText("");
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -370,25 +491,23 @@ public class Visitantes extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblDep;
-    private javax.swing.JLabel lblEntradas;
     private javax.swing.JLabel lblMatricula;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblNum;
     private javax.swing.JLabel lblNumEm;
-    private javax.swing.JLabel lblSalidas;
     private javax.swing.JLabel lblServ;
     private javax.swing.JPanel pnlDis;
+    private javax.swing.JRadioButton radioEntrada;
+    private javax.swing.JRadioButton radioSalida;
     private javax.swing.ButtonGroup rbtnEntradas;
     private javax.swing.JRadioButton rbtnServicios;
     private javax.swing.JRadioButton rbtnVisitantes;
     private javax.swing.JTable tblServicios;
     private javax.swing.JTable tblVisitantes;
     private javax.swing.JTextField txtDependencia;
-    private javax.swing.JTextField txtEntrada;
     private javax.swing.JTextField txtMatricula;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtNumEmp;
     private javax.swing.JTextField txtNumcasa;
-    private javax.swing.JTextField txtSalida;
     // End of variables declaration//GEN-END:variables
 }

@@ -34,9 +34,9 @@ public class VisitasDAOJDBC implements VisitasDAO{
     
     private static final String SQL_SELECT_ALL = "SELECT * FROM Visitas";
     private static final String SQL_SELECT_ONE = "SELECT * FROM Visitas WHERE idVistas = ?";
-    private static final String SQL_INSERT_ALL = "INSERT INTO Visitas(nombres, apellidoPaterno, apellidoMaterno,"
-            + "numeroCasa, matriculaVehiculo, fechaEntrada, fechaSalida, tipo, dependencia, cedula, vigilante) VALUES(?,?,?,"
-            + "?,?,?,?,?,?,?,?)";
+    private static final String SQL_INSERT_ALL = "INSERT INTO Visitas(nombres, numeroCasa,"
+            + "matriculaVehiculo, fechaEntrada, fechaSalida, tipo, dependencia, cedula, vigilante) VALUES(?, ?, ?,"
+            + "?, ?, ?, ?, ?, ?)";
     private static final String SQL_INSERT_NOT_NULLS = "INSERT INTO Visitas(nombres, apellidoPaterno, numeroCasa,"
             + "fechaEntrada, tipo, vigilante) VALUES(?, ?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE_NOMBRES = "UPDATE Visitas SET nombres = ? WHERE idVisitas = ?";
@@ -163,16 +163,14 @@ public class VisitasDAOJDBC implements VisitasDAO{
             conn = this.conexionTransaccional != null ? this.conexionTransaccional : Conexion.conectar();
             stmt = conn.prepareStatement(VisitasDAOJDBC.SQL_INSERT_ALL);
             stmt.setString(1, visita.getNombres());
-            stmt.setString(2, visita.getApellidoPaterno());
-            stmt.setString(3, visita.getApellidoMaterno());
-            stmt.setInt(4, visita.getNumeroCasa());
-            stmt.setString(5, visita.getMatriculaVehiculo());
-            stmt.setTimestamp(6, visita.getFechaEntrada());
-            stmt.setTimestamp(7, visita.getFechaSalida());
-            stmt.setString(8, visita.getTipo());
-            stmt.setString(9, visita.getDependencia());
-            stmt.setString(10, visita.getCedula());
-            stmt.setInt(11, visita.getVigilante());
+            stmt.setInt(2, visita.getNumeroCasa());
+            stmt.setString(3, visita.getMatriculaVehiculo());
+            stmt.setTimestamp(4, visita.getFechaEntrada());
+            stmt.setTimestamp(5, visita.getFechaSalida());
+            stmt.setString(6, visita.getTipo());
+            stmt.setString(7, visita.getDependencia());
+            stmt.setString(8, visita.getCedula());
+            stmt.setInt(9, visita.getVigilante());
             registros = stmt.executeUpdate();
         }catch(SQLException e){
             System.out.println("Ha ocurrido un error al tratar de insertar el registro en Visitas: "+e);

@@ -8,6 +8,8 @@ package com.proyecto.view;
  *
  * @author Bañales
  */
+
+// Backend hecho por: aspxe
 public class Busqueda extends javax.swing.JPanel {
 
     /**
@@ -49,7 +51,7 @@ public class Busqueda extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
         jLabel1.setText("BUSQUEDA");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(370, 30, 140, 29);
+        jLabel1.setBounds(370, 30, 230, 29);
 
         add(jPanel1);
         jPanel1.setBounds(0, 0, 900, 100);

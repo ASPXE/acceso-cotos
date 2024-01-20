@@ -30,6 +30,7 @@ public class VigilantesDAOJDBC implements VigilantesDAO{
     private static final String SQL_SELECT_ALL = "SELECT * FROM Vigilantes";
     private static final String SQL_SELECT_ONE = "SELECT * FROM Vigilantes WHERE idVigilantes = ?";
     private static final String SQL_VALIDAR_USUARIO = "SELECT nombreUsuario, passwd FROM Vigilantes WHERE nombreUsuario = ? AND passwd = ?";
+    private static final String SQL_RECUPERAR_ID = "SELECT idVigilantes FROM Vigilantes WHERE nombreUsuario = ? AND passwd = ?";
 
     @Override
     public List<VigilantesDTO> selectAll() throws SQLException {
@@ -149,6 +150,39 @@ public class VigilantesDAOJDBC implements VigilantesDAO{
         }
         
         return esValido;
+        
+    }
+    
+    public VigilantesDTO recuperarId(String nombreUsuario, String passwd) throws SQLException{
+        
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        VigilantesDTO vigilante = null;
+        
+        int id = 0;
+        
+        try{
+            conn = this.conexionTransaccional != null ? this.conexionTransaccional : Conexion.conectar();
+            stmt = conn.prepareStatement(VigilantesDAOJDBC.SQL_RECUPERAR_ID);
+            stmt.setString(1, nombreUsuario);
+            stmt.setString(2, passwd);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                id = rs.getInt("idVigilantes");
+                vigilante = new VigilantesDTO(id);
+            }
+        }catch(SQLException e){
+            System.out.println("Ha ocurrido un error al tratar de recuperar el ID del registro de Vigilantes: "+e);
+        }finally{
+            Conexion.cerrar(rs);
+            Conexion.cerrar(stmt);
+            if(this.conexionTransaccional == null){
+                Conexion.cerrar(conn);
+            }
+        }
+        
+        return vigilante;
         
     }
     

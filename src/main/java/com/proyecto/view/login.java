@@ -5,6 +5,7 @@
 package com.proyecto.view;
 
 import com.proyecto.controller.VigilantesDAOJDBC;
+import com.proyecto.objects.VigilantesDTO;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -12,6 +13,8 @@ import javax.swing.JOptionPane;
  *
  * @author Bañales
  */
+
+// Backend hecho por aspxe
 public class login extends javax.swing.JFrame {
 
     /**
@@ -19,6 +22,7 @@ public class login extends javax.swing.JFrame {
      */
     
     private VigilantesDAOJDBC vigilante;
+    public VigilantesDTO vigilanteT;
     
     public login() {
         initComponents();
@@ -115,6 +119,7 @@ public class login extends javax.swing.JFrame {
         
         try{
             esValido = this.vigilante.validarUsuario(txtUsuario.getText(), txtPasswd.getText());
+            this.vigilanteT = this.vigilante.recuperarId(txtUsuario.getText(), txtPasswd.getText());
         }catch(SQLException e){
             System.out.println("Ha ocurrido un error al tratar de validar Vigilantes: "+e);
         }
@@ -124,7 +129,7 @@ public class login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Bienvenido/a", "Credenciales correctas", JOptionPane.INFORMATION_MESSAGE);
             this.setVisible(false);
             this.setEnabled(false);
-            MenuInicio menu = new MenuInicio();
+            MenuInicio menu = new MenuInicio(this.vigilanteT);
             menu.setVisible(true);
             menu.setEnabled(true);
             
